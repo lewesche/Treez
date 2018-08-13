@@ -7,11 +7,11 @@ import copy
 
 class Tree:
 
-	def __init__(self, MaxAge, alpha, minBranches, Xmax, Vmax, X0, Xdim, Ydim, lw):
+	def __init__(self, MaxAge, alpha, minBranches, maxWidth, Vmax, X0, Xdim, Ydim, lw):
 		self.MaxAge = MaxAge
 		self.alpha = alpha
 		self.minBranches = minBranches
-		self.Xmax=Xmax
+		self.maxWidth=maxWidth
 		self.Vmax = Vmax
 		self.X0 = X0
 		self.Xdim = Xdim
@@ -76,7 +76,7 @@ class Tree:
 		for j in range(0,len(self.X)):
 			if self.X[j] is None:
 				continue
-			elif abs(self.X[j][-1])>self.Xdim/2 or abs(self.Y[j][-1])>self.Ydim/2 or (self.X[j][-1])>(self.X0+self.Xmax) or (self.X[j][-1])<(self.X0-self.Xmax):
+			elif abs(self.X[j][-1])>self.Xdim/2 or abs(self.Y[j][-1])>self.Ydim/2 or (self.X[j][-1])>(self.X0+self.maxWidth) or (self.X[j][-1])<(self.X0-self.maxWidth):
 				self.Age[j] = None
 				self.X[j] = None
 				self.Y[j] = None
@@ -164,11 +164,11 @@ def update(*args):
 	return T1.lines + T2.lines + T3.lines +T4.lines
 
 
-# Construct the animation, using the update function as the animation
-# director.
 fig.subplots_adjust(left=0, right=1, top=0.95, bottom=0)
 
 anim = animation.FuncAnimation(fig, update, interval=30, frames=time*30, init_func=init, blit=True)
 
-anim.save('Treez.mp4', fps=30, extra_args=['-vcodec', 'libx264'],  savefig_kwargs={'facecolor':bgColor})
+#Uncomment this next line to save an animation
+#anim.save('Treez.mp4', fps=30, extra_args=['-vcodec', 'libx264'],  savefig_kwargs={'facecolor':bgColor})
+
 plt.show()
